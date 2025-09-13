@@ -1,4 +1,3 @@
--- Complete Timetable Management System for Schedulo
 -- Schema Analysis: Fresh project - No existing tables
 -- Integration Type: Complete new schema creation
 -- Dependencies: auth.users (Supabase built-in)

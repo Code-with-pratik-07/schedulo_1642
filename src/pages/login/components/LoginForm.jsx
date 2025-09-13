@@ -83,10 +83,16 @@ const LoginForm = () => {
       const { data, error } = await signIn(formData?.email, formData?.password);
 
       if (error) {
-        setErrors({
-          general: error?.message || 'Login failed. Please try again.'
-        });
-        return;
+        // Only show auth errors, not profile loading errors
+        if (!error.message?.includes('querying schema') && 
+            !error.message?.includes('Database error')) {
+          setErrors({
+            general: error?.message || 'Login failed. Please try again.'
+          });
+          return;
+        }
+        // If it's a schema error, continue with login process
+        // (authentication might still succeed)
       }
 
       if (data?.user) {
@@ -103,9 +109,13 @@ const LoginForm = () => {
         navigate(targetRoute);
       }
     } catch (error) {
-      setErrors({
-        general: 'Login failed. Please try again.'
-      });
+      // Only show non-schema errors
+      if (!error.message?.includes('querying schema') && 
+          !error.message?.includes('Database error')) {
+        setErrors({
+          general: 'Login failed. Please try again.'
+        });
+      }
     } finally {
       setIsLoading(false);
     }

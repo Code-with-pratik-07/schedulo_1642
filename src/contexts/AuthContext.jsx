@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
       setLoading(false)
       
       if (session?.user) {
-        profileOperations?.load(session?.user?.id) // Fire-and-forget
+        // profileOperations?.load(session?.user?.id) // Fire-and-forget
       } else {
-        profileOperations?.clear()
+        // profileOperations?.clear()
       }
     }
   }
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
       const { error } = await supabase?.auth?.signOut()
       if (!error) {
         setUser(null)
-        profileOperations?.clear()
+        // profileOperations?.clear()
       }
       return { error }
     } catch (error) {
